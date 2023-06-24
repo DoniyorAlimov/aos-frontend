@@ -1,5 +1,7 @@
+import { Heading } from "@chakra-ui/react";
+
 const App = () => {
-  return <div>App</div>;
+  return <Heading>AOS frontend</Heading>;
 };
 
 export default App;
