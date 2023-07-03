@@ -8,6 +8,8 @@ interface Props {
 }
 
 const LineChart = ({ params }: Props) => {
+  if (!params?.aggregation_type) params = {...params, aggregation_type: 1}
+ 
   const { data: figure, isLoading, error } = useLineChart(params || {});
 
   if (error) return <Typography color={red[400]} sx={{m: 5}}>{error.message}</Typography>;
