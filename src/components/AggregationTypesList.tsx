@@ -1,4 +1,11 @@
-import { FormControl, InputLabel, MenuItem, Select, Skeleton } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Skeleton,
+} from "@mui/material";
+import { lightBlue } from "@mui/material/colors";
 import useAggregationTypes from "../hooks/useAggregationTypes";
 
 interface Props {
@@ -14,7 +21,15 @@ const AggregationTypesList = ({
 
   if (error) return null;
 
-  if (isLoading) return <Skeleton variant="rounded" height={40} width={240} sx={{ m: 5 }}></Skeleton>
+  if (isLoading)
+    return (
+      <Skeleton
+        variant="rounded"
+        height={40}
+        width={240}
+        sx={{ m: 5 }}
+      ></Skeleton>
+    );
 
   if (!aggregations) return null;
 
@@ -25,6 +40,7 @@ const AggregationTypesList = ({
         labelId="aggregation_select"
         value={selectedAggregationTypeId}
         onChange={(e) => onSelectAggregationTypeId(Number(e.target.value))}
+        sx={{ color: lightBlue[700] }}
       >
         {aggregations.map((aggr) => (
           <MenuItem key={aggr.id} value={aggr.id}>

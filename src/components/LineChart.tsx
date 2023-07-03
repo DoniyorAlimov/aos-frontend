@@ -1,5 +1,5 @@
 import { Skeleton, Typography } from "@mui/material";
-import Plot from "react-plotly.js";
+import Plot, { Figure } from "react-plotly.js";
 import useLineChart, { EquipmentQueryParams } from "../hooks/useLineChart";
 import { red } from "@mui/material/colors";
 
@@ -8,16 +8,23 @@ interface Props {
 }
 
 const LineChart = ({ params }: Props) => {
-  if (!params?.aggregation_type) params = {...params, aggregation_type: 1}
- 
-  const { data: figure, isLoading, error } = useLineChart(params || {});
+  if (!params?.aggregation_type) params = { ...params, aggregation_type: 1 };
 
-  if (error) return <Typography color={red[400]} sx={{m: 5}}>{error.message}</Typography>;
+  const { data, isLoading, error } = useLineChart(params || {});
+
+  if (error)
+    return (
+      <Typography color={red[400]} sx={{ m: 5 }}>
+        {error.message}
+      </Typography>
+    );
 
   if (isLoading)
     return <Skeleton variant="rounded" height={400} sx={{ m: 5 }} />;
 
-  if (!figure) return null;
+  if (!data) return null;
+
+  let figure: Figure = params.name?.length ? data : { ...data, data: [] };
 
   return (
     <Plot

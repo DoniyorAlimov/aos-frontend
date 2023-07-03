@@ -3,6 +3,7 @@ import LineChart from "./components/LineChart";
 import { EquipmentQueryParams } from "./hooks/useLineChart";
 import AggregationTypesList from "./components/AggregationTypesList";
 import { useState } from "react";
+import TagsSelector from "./components/TagsSelector";
 
 const App = () => {
   const [queryParams, setQueryParams] = useState<EquipmentQueryParams>();
@@ -19,6 +20,11 @@ const App = () => {
             ...queryParams,
             aggregation_type: aggregationTypeId,
           })
+        }
+      />
+      <TagsSelector
+        onSelectedTags={(tags) =>
+          setQueryParams({ ...queryParams, name: tags })
         }
       />
       <LineChart params={queryParams} />
